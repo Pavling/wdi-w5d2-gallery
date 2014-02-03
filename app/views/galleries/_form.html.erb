@@ -1,0 +1,61 @@
+<%= form_for @gallery do |f| %>
+  <% if @gallery.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= "#{pluralize(@gallery.errors.count, "error")} prohibited this gallery from being saved:" %>
+      </h2>
+      <ul>
+        <% @gallery.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+  </div>
+  Paintings:
+  <br/>
+  <br/>
+  <%= f.fields_for :paintings do |sub_form| %>
+    <fieldset>
+      <div class="field">
+        <%= sub_form.label :title %>
+        <%= sub_form.text_field :title %>
+      </div>
+      <div class="field">
+        <%= sub_form.label :artist %>
+        <%= sub_form.text_field :artist %>
+      </div>
+      <div class="field">
+        <%= sub_form.label :description %>
+        <%= sub_form.text_field :description %>
+      </div>
+      <div class="field">
+        <%= sub_form.label :price %>
+        <%= sub_form.number_field :price %>
+      </div>
+      <div class="field">
+        <%= sub_form.label :image %>
+        <%= sub_form.file_field :image %>
+      </div>
+      <div class="field">
+        <%= sub_form.label :remote_image_url, 'or add by URL' %>
+        <%= sub_form.url_field :remote_image_url %>
+      </div>
+      <%= sub_form.check_box :_destroy %>
+      <%= sub_form.label :_destroy, "Remove Painting" %>
+    </fieldset>
+    <br/>
+  <% end %>
+  <div class="actions">
+    <%= f.submit 'Save' %>
+  </div>
+<% end %>
